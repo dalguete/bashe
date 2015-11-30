@@ -11,8 +11,13 @@ How to use it
 The idea with is to use this as a helper, so you can define your custom script solution
 using operations, arguments adn options, short and long, no worries.
 
-Inside any bash script you wanna deal with, source the libashe file. That will bring
-all the power offered by libashe into your scripts.
+There are two important parts: 1) main script and 2) per operation script.
+
+Main Script
+-----------
+
+Main structure that will source the libashe file. That will bring all the power
+offered by libashe into your script and operation ones.
 
 Your script will only need to deal with basic stuff, like checking initialization
 things in place, the load of other files/folders, etc. One basic starting point
@@ -62,11 +67,16 @@ can be this:
 <main function> "$@"
 ```
 
-As can be seen, `consume` is the main part of all. There is where all correct processes
-will be triggered. But, in order to know how to proceed, the main functionality operations
-must be set in place (`</path/to/main/modules/files/>*.sh`)
+As can be seen, `consume` is the main part of all. To know how to deal with that guy,
+check the next section
 
-Operation script files have a particular definition, like this:
+Per Operation Script
+--------------------
+
+These are the scripts that will actually do the job. In the main script they will
+be loaded in the part `_load "</path/to/main/modules/files/>*.sh"`
+
+Their defintion will go like this:
 
 ```
 # Functionality for the <operation name> operation
@@ -102,6 +112,20 @@ function <operation name>() {
 }
 
 ```
+
+Explaining things a bit:
+
+* **\<operation name\>**: Name of the operation to implement. Be sure to not collide
+  with an already existing one nor prefixed 'libashe_'
+
+* **\<short options\>**: List of `getopt` short options available for the given operation.
+  Format can be something like "abc:d::e" (more on `getopt`, http://man7.org/linux/man-pages/man1/getopt.1.html)
+
+* **\<long options\>**: List of `getopt` long options available for the given operation.
+  Format can be something like "airplane,boat,coconut:discovery::enjoy" (more on `getopt`, http://man7.org/linux/man-pages/man1/getopt.1.html)
+
+These per operation scripts can happen as many times as operations required for the
+custom solution being implemented.
 
 Available Functions
 ===================
