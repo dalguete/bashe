@@ -1,0 +1,14 @@
+# This is the general loader, that obviously loads all basic functionality
+
+# As functionality lives in other files, it's important to define a way to load
+# these files properly.
+function _load() {
+  for i in $(find `echo "$1"`); do
+    if [ -r "$i" ]; then
+      . "$i"
+    fi
+  done
+}
+
+# Load core functionality (basic functionality)
+_load "/usr/lib/libashe/*/*.sh"
