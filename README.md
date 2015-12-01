@@ -77,7 +77,7 @@ Explaining things a bit:
 
 * **\<path/to/file/to/check\>**: Just an example on how a check would be done in
   case a file needs to exist prior execution. The whole logic can change to adapt
-  to custom requirements. The idea is nothing will run is at least these min reqs
+  to custom requirements. The idea is nothing will run at least these min reqs
   are satisfied. If so the **\<message to display on no file detected error\>** will be displayed.
 
 As can be seen, `_consume` is the main part of all. To know how to deal with that guy,
@@ -129,14 +129,14 @@ function <operation name>() {
 Explaining things a bit:
 
 * **\<operation name\>**: Name of the operation to implement. Be sure to not collide
-  with an already existing one. Functions prefixed with a single '_' are libashe reserved.
-  However more than one '_' has no restriction.
+  with an already existing one. Functions prefixed with a single '\_' are libashe reserved.
+  However more than one '\_' has no restriction.
 
 * **\<short options\>**: List of `getopt` short options available for the given operation.
-  Format can be something like "abc:d::e" (more on `getopt`, http://man7.org/linux/man-pages/man1/getopt.1.html)
+  Format can be something like "abc:d::e" (more on `getopt` [here](http://man7.org/linux/man-pages/man1/getopt.1.html))
 
 * **\<long options\>**: List of `getopt` long options available for the given operation.
-  Format can be something like "airplane,boat,coconut:discovery::enjoy" (more on `getopt`, http://man7.org/linux/man-pages/man1/getopt.1.html)
+  Format can be something like "airplane,boat,coconut:discovery::enjoy" (more on `getopt` [here](http://man7.org/linux/man-pages/man1/getopt.1.html))
 
 * **`set_operation` function call**: When the script will be loaded, info about the
   operation will be registered in the whole solution (name and supported options).
@@ -159,7 +159,7 @@ custom solution being implemented.
 Examples
 --------
 
-Check the [e9ter](https://github.com/dalguete/eater) project
+Check the [e9ter](https://github.com/dalguete/e9ter) project
 
 Available Functions
 ===================
