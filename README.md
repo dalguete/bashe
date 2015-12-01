@@ -70,7 +70,7 @@ can be this:
 Explaining things a bit:
 
 * **\<main function\>**: Name of the script's main function. Be sure to not collide
-  with an already existing one. Functions prefixed with a single '_' are libashe reserved.
+  with an already existing one. Functions prefixed with a single '\_' are libashe reserved.
   However more than one '\_' has no restriction.
 
 * **\</path/to/main/modules/files/\>**: Path where all operation scripts live.
