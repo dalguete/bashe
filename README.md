@@ -8,8 +8,8 @@ crappy name but the idea was to have something original, so there you go!
 How to use it
 =============
 
-The idea with is to use this as a helper, so you can define your custom script solution
-using operations, arguments adn options, short and long, no worries.
+The idea is to use this as a helper, so you can define your custom script solution
+using operations, arguments and options, short and long, no worries.
 
 There are two important parts: 1) main script and 2) per operation script.
 
@@ -51,11 +51,11 @@ can be this:
   if [ -f <path/to/file/to/check> ]; then
     . <path/to/file/to/check>
   else
-    die "<message to display on no file detected error>"
+    _die "<message to display on no file detected error>"
   fi
 
   # Arguments passed are consumed, and operation called, if any found
-  consume "$@"
+  _consume "$@"
 
   ##########################################
   # Finish almost unnoticed subshell start #
@@ -70,7 +70,8 @@ can be this:
 Explaining things a bit:
 
 * **\<main function\>**: Name of the script's main function. Be sure to not collide
-  with an already existing one nor prefixed 'libashe_'
+  with an already existing one. Functions prefixed with a single '_' are libashe reserved.
+  However more than one '_' has no restriction.
 
 * **\</path/to/main/modules/files/\>**: Path where all operation scripts live.
 
@@ -79,7 +80,7 @@ Explaining things a bit:
   to custom requirements. The idea is nothing will run is at least these min reqs
   are satisfied. If so the **\<message to display on no file detected error\>** will be displayed.
 
-As can be seen, `consume` is the main part of all. To know how to deal with that guy,
+As can be seen, `_consume` is the main part of all. To know how to deal with that guy,
 check the next section
 
 Per Operation Script
@@ -88,15 +89,15 @@ Per Operation Script
 These are the scripts that will actually do the job. In the main script they will
 be loaded in the part `_load "</path/to/main/modules/files/>*.sh"`
 
-Their defintion will go like this:
+Their definition will go like this:
 
 ```
 # Functionality for the <operation name> operation
-set_operation "<operation name>" "<short options>" "<long options>"
+_set_operation "<operation name>" "<short options>" "<long options>"
 
 # Function used to display operation usage
 function <operation name>_usage() {
-  die "Usage this operation like this"
+  _die "Usage this operation like this"
 }
 
 # Function used to consume operation passed options
@@ -107,7 +108,7 @@ function <operation name>_consume() {
   do
     case "$1" in
       -o|--option) # Indicates the option <- JUST AN EXAMPLE
-        set_option "option" "$2"
+        _set_option "option" "$2"
         shift
         ;;
     esac
@@ -118,7 +119,7 @@ function <operation name>_consume() {
 
 # Actual implementation of operation.
 function <operation name>() {
-  # All options registered can be accessed using get_option and the key passed.
+  # All options registered can be accessed using _get_option and the key passed.
   # In the example, it'd be "option"
   # Arguments are stored in an array called ARGS
 }
@@ -128,7 +129,8 @@ function <operation name>() {
 Explaining things a bit:
 
 * **\<operation name\>**: Name of the operation to implement. Be sure to not collide
-  with an already existing one nor prefixed 'libashe_'.
+  with an already existing one. Functions prefixed with a single '_' are libashe reserved.
+  However more than one '_' has no restriction.
 
 * **\<short options\>**: List of `getopt` short options available for the given operation.
   Format can be something like "abc:d::e" (more on `getopt`, http://man7.org/linux/man-pages/man1/getopt.1.html)
@@ -143,39 +145,44 @@ Explaining things a bit:
   will be called to display operation usage information.
 
 * **\<operation name\>_consume function**: Function used to consume all options
-  passed. The function `set_option` is there to help on that task. Arguments can
+  passed. The function `_set_option` is there to help on that task. Arguments can
   be consumed too, but they are handled by default by libashe so you won't have
   to worry about them.
 
 * **\<operation name\> function**: Actual place where the operation processing happens.
-  Options can be checked with `get_option` function, and arguments using the ARGS
+  Options can be checked with `_get_option` function, and arguments using the ARGS
   array.
 
 These per operation scripts can happen as many times as operations required for the
 custom solution being implemented.
 
+Examples
+--------
+
+Check the [e9ter](https://github.com/dalguete/eater) project
+
 Available Functions
 ===================
 
 Next are detailed all available functions you can use in your custom scripts.
-It's encouraged for you to use prefixed function names, under a namespace-like
-concept, to avoid collitions.
+Remember, function prefixed with one '_' are libashe reserved. However more than one
+'_' has no restriction.
 
-* consume
-* crossos
-* die
-* get_operation_data
-* set_operation
-* get_last_option
-* get_options
-* is_option
-* remove_option
-* reset_options
-* set_option
-* remove_duplicates_array
-* reverse_array
-* status
-* yaml_parser
+* _consume
+* _crossos
+* _die
+* _get_operation_data
+* _set_operation
+* _get_last_option
+* _get_options
+* _is_option
+* _remove_option
+* _reset_options
+* _set_option
+* _remove_duplicates_array
+* _reverse_array
+* _status
+* _yaml_parser
 
 
 Ubuntu PPA
