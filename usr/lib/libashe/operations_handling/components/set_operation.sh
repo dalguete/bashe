@@ -10,10 +10,10 @@
 #
 
 # Used to register an operation
-function set_operation() {
+function _set_operation() {
   # Check at least a name is given
   if [ ! $# ]; then
-    die "No operation name passed to register"
+    _die "No operation name passed to register"
   fi
 
   # Get some defaults
@@ -22,19 +22,19 @@ function set_operation() {
   local long_options=${3:-""}
 
   # Process the operation set, only if operation not found previously
-  if [[ $(is_option "operations" "$1") == 1 ]]; then
-    die "Operation '${1}' already set"
+  if [[ $(_is_option "operations" "$1") == 1 ]]; then
+    _die "Operation '${1}' already set"
   fi
 
   # Store the operation
-  set_option "operations" $operation
+  _set_option "operations" $operation
 
   # Store the operation getopt string handling
-  set_option "operation_${operation}_short_options" $short_options
-  set_option "operation_${operation}_long_options" $long_options  
+  _set_option "operation_${operation}_short_options" $short_options
+  _set_option "operation_${operation}_long_options" $long_options  
 
   # Store the operation util functions
-  set_option "operation_${operation}_usage" "${operation}_usage"
-  set_option "operation_${operation}_consume" "${operation}_consume"
+  _set_option "operation_${operation}_usage" "${operation}_usage"
+  _set_option "operation_${operation}_consume" "${operation}_consume"
 }
 

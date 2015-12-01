@@ -12,39 +12,39 @@
 #
 
 # Used to register an operation
-function get_operation_data() {
+function _get_operation_data() {
   # Check at least a name is given
   if [ ! $# ]; then
-    die "No operation name passed to work with"
+    _die "No operation name passed to work with"
   fi
 
   # Check the operation is set
   local operation=$(echo "$1" | tr '-' '_')
 
-  if [[ $(is_option "operations" "$operation") == 0 ]]; then
-    die "Operation '$1' not recognized"
+  if [[ $(_is_option "operations" "$operation") == 0 ]]; then
+    _die "Operation '$1' not recognized"
   fi
 
   # Get the operation data required
   local options=()
   case "$2" in
     "short options")
-      options=($(get_options "operation_${operation}_short_options"))
+      options=($(_get_options "operation_${operation}_short_options"))
       [[ ${#options[@]} != 0 ]] && echo "${options[-1]}"
       ;;
 
     "long options")
-      options=($(get_options "operation_${operation}_long_options"))
+      options=($(_get_options "operation_${operation}_long_options"))
       [[ ${#options[@]} != 0 ]] && echo "${options[-1]}"
       ;;
 
     "usage")
-      options=($(get_options "operation_${operation}_usage"))
+      options=($(_get_options "operation_${operation}_usage"))
       [[ ${#options[@]} != 0 ]] && echo "${options[-1]}"
       ;;
 
     "consume")
-      options=($(get_options "operation_${operation}_consume"))
+      options=($(_get_options "operation_${operation}_consume"))
       [[ ${#options[@]} != 0 ]] && echo "${options[-1]}"
       ;;
 

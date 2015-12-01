@@ -2,10 +2,10 @@
 #
 
 # Used to return all stored value item for a given key
-function get_options() {
+function _get_options() {
   # Check a key is received
   if [ $# != 1 ]; then
-    die "Options repository key needed"
+    _die "Options repository key needed"
   fi
 
   # Get the items passed

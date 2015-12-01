@@ -3,7 +3,7 @@
 # Used to print a message to stderr and return an error value.
 # It will fail, always.
 
-function die {
+function _die {
   # Just prints to stderr
   if [ "$@" ]; then
     echo "$@" 1>&2

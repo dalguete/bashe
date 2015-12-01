@@ -2,10 +2,10 @@
 #
 
 # Used to remove all options for a given key
-function reset_options() {
+function _reset_options() {
   # Check a key is received
   if [ $# != 1 ]; then
-    die "Options repository key needed"
+    _die "Options repository key needed"
   fi
 
   # Get the items passed

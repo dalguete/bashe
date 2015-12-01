@@ -6,35 +6,35 @@ OPERATION=
 ARGS=()
 
 # Function used to consume the different operations and operations passed
-function consume() {
+function _consume() {
   # Check values passed to main function
   if [ -z "$1" ]; then
-    die "No operation defined"
+    _die "No operation defined"
   fi
 
   # Set the main operation to use.
-  OPERATION=$(get_operation_data "$1")
+  OPERATION=$(_get_operation_data "$1")
   if [ -z "$OPERATION" ]; then
-    die
+    _die
   fi
 
   # Get operation handling info
-  local _short=$(get_operation_data "$1" "short options")
-  local _long=$(get_operation_data "$1" "long options")
-  local _usage=$(get_operation_data "$1" "usage")
-  local _consume=$(get_operation_data "$1" "consume")
+  local _short=$(_get_operation_data "$1" "short options")
+  local _long=$(_get_operation_data "$1" "long options")
+  local _usage=$(_get_operation_data "$1" "usage")
+  local _consume=$(_get_operation_data "$1" "consume")
 
   # Operation argument is no longer needed
   shift
 
   # Consume options. getopt transformation is called twice, first for error checkings
   # and second for actual processing
-  crossos getopt -o $_short -l $_long -q -- "$@" &> /dev/null
+  _crossos getopt -o $_short -l $_long -q -- "$@" &> /dev/null
   if [ $? -ne 0 ]; then
     $_usage
   fi
 
-  local args=$(crossos getopt -o $_short -l $_long -q -- "$@")
+  local args=$(_crossos getopt -o $_short -l $_long -q -- "$@")
 
   # Important to exec the eval here, as a loop latter is using positional parameters
   # to consume arguments (see below)

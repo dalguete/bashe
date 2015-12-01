@@ -2,10 +2,10 @@
 #
 
 # Used to remove a given stored value item for a given key
-function remove_option() {
+function _remove_option() {
   # Check a key is received
   if [ $# -lt 2 ]; then
-    die "Required options key storage to check value existence against"
+    _die "Required options key storage to check value existence against"
   fi
 
   # Get the items passed

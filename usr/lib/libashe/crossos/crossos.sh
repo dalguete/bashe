@@ -5,11 +5,11 @@
 # are times some commands needs a different treatment in order to work properly in
 # different OS. And here we define those matches.
 
-function crossos {
+function _crossos {
   # Check a command was passed
   local command=${1:-}
   [ -z $command ] && {
-    die "No command name to wrap passed"
+    _die "No command name to wrap passed"
   }
 
   # Set a default command to use

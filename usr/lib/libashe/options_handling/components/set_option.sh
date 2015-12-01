@@ -2,7 +2,7 @@
 #
 
 # Used to store a value in the correct options store, using the given option key
-function set_option() {
+function _set_option() {
   # Check a key and a value are received. A third value can be passed too, that,
   # if set, indicates don't remove duplicates
   if [[ $# != 2 && $# != 3 ]]; then
@@ -20,15 +20,16 @@ function set_option() {
   # Remove duplicate. When repeated, latest entry will be preserved.
   # As function return array separated by \n, we prepare the same env
   IFS=$'\n'
-  local arrayAux=($(reverse_array $var[@]));
+  local arrayAux=($(_reverse_array $var[@]));
 
   if [ -z ${3+x} ]; then
-    arrayAux=($(remove_duplicates_array arrayAux[@]));
+    arrayAux=($(_remove_duplicates_array arrayAux[@]));
   fi
 
-  arrayAux=($(reverse_array arrayAux[@]));
+  arrayAux=($(_reverse_array arrayAux[@]));
   unset IFS
 
   # Return findings
   eval "$var=(\"\${arrayAux[@]}\")"
 }
+

@@ -3,7 +3,7 @@
 
 # Utility function used to remove duplicate entries in an array.
 # Caller must pass array var in the form array[@] (not quotes, no dollar sign)
-function remove_duplicates_array() {
+function _remove_duplicates_array() {
   # Remove duplicates in the array string data passed
   local array=("${!1}")
 

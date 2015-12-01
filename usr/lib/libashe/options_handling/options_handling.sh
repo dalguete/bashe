@@ -10,9 +10,7 @@
 # Where <option key> will be the option letter
 
 # As first step, all set of options is removed to have a clean start.
-for entry in ${!OPTION__*}; do
-  unset $entry
-done  
+unset ${!OPTION__@}
 
 # Functionality live in other files. Set that way for convenience, and to keep this file
 # as short an clean as possible
