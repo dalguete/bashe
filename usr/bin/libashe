@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Helpers provided to assist in the integration of this library with custom bash scripts
+# that require options/arguments/operations handling.
+
+echo 'Inside the libashe assitant. Welcome!'
